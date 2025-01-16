@@ -1,0 +1,45 @@
+---
+title: "Instructions for Using the Equity Center Dockerfile"
+author: Samantha Toet 
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+*Last updated: January 16, 2025*
+
+# What is Docker?
+
+[Docker](https://docs.docker.com/desktop/) is an open-source tool for building, sharing, and running software. It's a great way to manage environment and package dependences in a lightweight manner without having to download everything to your local machine.
+
+Docker uses images to create isolated containers. **Images** contain the source code, libraries, dependencies, tools and other files that an application or script needs to run. Think of an image as a read-only template with instructions for opening and running a Docker container.
+
+A **container** is a runnable instance of an image that you interact with. A Docker container can be seen as a smaller computer inside your computer. A helpful metaphor is to think of a container as a cake, while an image is the recipe to bake the cake. If the cake is good, you generally don't want to change the recipe, and you want to reuse it to make multiple cakes in the future to give to your friends. Docker helps us manage the multiple cakes (containers) we're baking (computers we're running code in).
+
+The image below shows a concept map of the Docker lifecycle:
+
+<center>
+
+![Docker concept map from <a href="https://do4ds.com/">DevOps for Data Science</a>](https://do4ds.com/chapters/sec1/images/docker-lifecycle.png){width="500"}
+
+</center>
+
+# Why do we need it?
+
+Some of the data we use at the Equity Center is stored in PDFs. To extract data out of PDFs and get it into RStudio to clean and analyze, we use the [`tabulapdf`](https://docs.ropensci.org/tabulapdf/ "tabulapdf") package. Developed by the folks at ROpenSci, `tabulapdf` provides R bindings to the Tabula java library, which can be used to computationaly extract tables from PDF documents. The package requires Java to function, and unfortunately Java does not play nicely with the new Mac M1 chips which many of us use.
+
+As a workaround to installing Java locally, we'll use a Docker container with R and rJava installed to extract the table data. From there, we can export the raw data back into RStudio for cleaning and analysis.
+
+# The Dockerfile
+
+Docker builds images by reading the instructions from a Dockerfile. A Dockerfile is a text file containing instructions for building your source code.
+
+## Step 0: Prerequisites
+
+Before using the Equity Center Dockerfile, you need to have Docker installed on your computer. Download Docker Desktop here: <https://docs.docker.com/get-started/get-docker/>
+
+## Step 1: Clone the Git Repo
+
+## Step 2: Open a Terminal
+
