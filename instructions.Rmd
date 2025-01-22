@@ -7,7 +7,9 @@ output:
     toc_float: true
 ---
 
-*Last updated: January 16, 2025*
+*Last updated: January 21, 2025*
+
+*Jump to [Quickstart](#quickstart)*
 
 # What is Docker?
 
@@ -15,7 +17,7 @@ output:
 
 Docker uses images to create isolated containers. **Images** contain the source code, libraries, dependencies, tools and other files that an application or script needs to run. Think of an image as a read-only template with instructions for opening and running a Docker container.
 
-A **container** is a runnable instance of an image that you interact with. A Docker container can be seen as a smaller computer inside your computer. A helpful metaphor is to think of a container as a cake, while an image is the recipe to bake the cake. If the cake is good, you generally don't want to change the recipe, and you want to reuse it to make multiple cakes in the future to give to your friends. Docker helps us manage the multiple cakes (containers) we're baking (computers we're running code in).
+A **container** is a runnable instance of an image that you interact with. A Docker container can be seen as a smaller computer inside your computer. A helpful metaphor is to think of a container as a cake, while an image is the recipe to bake the cake. If the cake is good, you generally don't want to change the recipe, and you want to reuse it to make multiple cakes in the future. You also might want to share that recipe with your friends to use in their own kitchens. Docker helps us manage the multiple cakes (containers) we're baking (computers we're running code in) and in different kitchens (operating systems).
 
 The image below shows a concept map of the Docker lifecycle:
 
@@ -31,15 +33,58 @@ Some of the data we use at the Equity Center is stored in PDFs. To extract data 
 
 As a workaround to installing Java locally, we'll use a Docker container with R and rJava installed to extract the table data. From there, we can export the raw data back into RStudio for cleaning and analysis.
 
-# The Dockerfile
+# Quickstart: the Dockerfile {#quickstart}
 
-Docker builds images by reading the instructions from a Dockerfile. A Dockerfile is a text file containing instructions for building your source code.
+Docker builds images by reading the instructions from a Dockerfile. A Dockerfile is a text file containing instructions for building your source code. You'll need to navigate using the terminal, and general bash instructions are listed below.
 
-## Step 0: Prerequisites
+## Step 0: Install Docker
 
 Before using the Equity Center Dockerfile, you need to have Docker installed on your computer. Download Docker Desktop here: <https://docs.docker.com/get-started/get-docker/>
 
 ## Step 1: Clone the Git Repo
 
-## Step 2: Open a Terminal
+In your terminal, change the current working directory to the location where you want the cloned directory. For this example, I'm using my Desktop so that I can find it easily.
 
+Then type or copy/paste the below:
+
+`git clone https://github.com/virginiaequitycenter/docker`
+
+And jump into this new directory. 
+
+## Step 2: Build the Image
+
+Still in the terminal, type:
+
+`docker build --tag "ec" .`
+
+(Make sure you remember the . at the end)
+
+## Step 3: Run the Image as a Container & Link a Volume 
+
+Because Docker containers are ephemeral, any data inside of the container will be lost when you close it. As a result we need to link a volume to the container so that you can save things locally from inside of it.
+
+To run the container, type:
+
+`docker run --rm -ti ec R`
+
+You should now be inside the new container and using the R language, as opposed to bash. To confirm this, you should see something like:
+
+> R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
+>
+> Copyright (C) 2024 The R Foundation for Statistical Computing
+>
+> Platform: x86_64-pc-linux-gnu
+
+(Or whatever the most recent version of R is)
+
+## Step 4: Load the R libraries
+
+You have now switched from bash to R. This lets you run the familiar `library()` command from R so that you can install the two R packages you need: `rJava` and `tabulapdf`.
+
+To load and install the packages type the code below. Note this will take a few minutes to download.
+
+```{r, eval=FALSE}
+library(rJava)
+install.packages("tabulapdf")
+library(tabulapdf)
+```

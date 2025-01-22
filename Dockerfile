@@ -4,6 +4,6 @@
 FROM rocker/r-base
 
 # Install rJava
-RUN apt install --no-install-recommends -y r-cran-rjava 
+RUN apt-get update && apt-get install --no-install-recommends -y r-cran-rjava 
 
 
