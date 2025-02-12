@@ -1485,8 +1485,9 @@ Dockerfile</h1>
 </div>
 
 
-<p><em>Last updated: January 21, 2025</em></p>
-<p><em>Jump to <a href="#quickstart">Quickstart</a></em></p>
+<p><em>Note: Please do not merge your downloaded data back into this
+repository.</em></p>
+<p><strong>Jump to <a href="#quickstart">Quickstart</a></strong></p>
 <div id="what-is-docker" class="section level1">
 <h1>What is Docker?</h1>
 <p><a href="https://docs.docker.com/desktop/">Docker</a> is an
@@ -1565,26 +1566,62 @@ container will be lost when you close it. As a result we need to link a
 volume to the container so that you can save things locally from inside
 of it.</p>
 <p>To run the container, type:</p>
-<p><code>docker run --rm -ti ec R</code></p>
-<p>You should now be inside the new container and using the R language,
-as opposed to bash. To confirm this, you should see something like:</p>
-<blockquote>
-<p>R version 4.4.2 (2024-10-31) – “Pile of Leaves”</p>
-<p>Copyright (C) 2024 The R Foundation for Statistical Computing</p>
-<p>Platform: x86_64-pc-linux-gnu</p>
-</blockquote>
-<p>(Or whatever the most recent version of R is)</p>
+<p><code>docker run --rm -ti -p 8787:8787 -v /Users/sct2td/Desktop/docker/data:/home/rstudio/data ec</code></p>
+<p>But replace <code>/Users/sct2td/Desktop/</code> with the location
+where you cloned this repo.</p>
 </div>
-<div id="step-4-load-the-r-libraries" class="section level2">
-<h2>Step 4: Load the R libraries</h2>
-<p>You have now switched from bash to R. This lets you run the familiar
-<code>library()</code> command from R so that you can install the two R
-packages you need: <code>rJava</code> and <code>tabulapdf</code>.</p>
-<p>To load and install the packages type the code below. Note this will
-take a few minutes to download.</p>
+<div id="step-4-open-the-rstudio-image-in-a-browser" class="section level2">
+<h2>Step 4: Open the RStudio Image in a Browser</h2>
+<p>After you run the command above, you will see a temporary password
+printed in the terminal. This is your one-time login password for using
+RStudio in the browser. Each time you launch a new RStudio window you’ll
+need a new password.</p>
+<p>Open up a browser, and in the URL field type:</p>
+<p><code>localhost:8787</code></p>
+<p>You will be sent to a login screen. The username is rstudio (all
+lowercase) and the password is the password you retrieved in Step 3.</p>
+<p>Once you type in the user name and password, the familar RStudio IDE
+will be available in your browser.</p>
+</div>
+<div id="step-5-load-the-r-libraries" class="section level2">
+<h2>Step 5: Load the R Libraries</h2>
+<p>In the browser-based RStudio IDE load the <code>rJava</code> and
+<code>tabulapdf</code> libraries by typing the code below. Note this
+will take a few minutes to download.</p>
 <pre class="r"><code>library(rJava)
 install.packages(&quot;tabulapdf&quot;)
 library(tabulapdf)</code></pre>
+</div>
+<div id="step-6-extract-data" class="section level2">
+<h2>Step 6: Extract Data</h2>
+<p>Still in the browser-based RStudio IDE, use the instructions from the
+<a href="https://docs.ropensci.org/tabulapdf/articles/tabulapdf.html"><code>tabulapdf</code>
+documentation</a> or another PDF scraper, to extract the data you need.
+Don’t worry about tidying it too much, you’ll be able to do this step in
+your local RStudio instance. The goal here is to get the data out of the
+PDF and stored locally, not to tidy, analyze, or model it.</p>
+</div>
+<div id="step-7-save-it" class="section level2">
+<h2>Step 7: Save It</h2>
+<p>Now that you have a data object, still in the browser-based IDE, save
+that in the <code>docker/data</code> folder. This is a temporary
+location that you will then access from your local RStudio instance.
+<em>Please do not merge this data back into the original Equity Center
+docker repository.</em></p>
+</div>
+<div id="step-8-access-locally" class="section level2">
+<h2>Step 8: Access Locally</h2>
+<p>Navigate back to your local RStudio instance. You should now see your
+saved data object in the <code>docker/data/</code> folder. Since this is
+still a temporary location, move this data to the directory you would
+like to save it in. For example, if I’m looking at eviction data from
+court records, and I extract a file called <code>filings.csv</code> I
+would then move that file out of the <code>docker/data/</code> directory
+and into my <code>evictions/data/</code> directory or RStudio
+Project.</p>
+<p>Now that your data is extracted and saved locally, it’s ready to be
+tidied and analyzed.</p>
+<p>Happy Dockering!</p>
 </div>
 </div>
 
