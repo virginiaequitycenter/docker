@@ -106,3 +106,10 @@ Navigate back to your local RStudio instance. You should now see your saved data
 Now that your data is extracted and saved locally, it's ready to be tidied and analyzed. 
 
 Happy Dockering! 
+
+# Resources 
+
+- [DevOps for Data Science](https://do4ds.com/)
+- [The Rocker Project](https://rocker-project.org/)
+- [tabulapdf](https://docs.ropensci.org/tabulapdf/)
+
